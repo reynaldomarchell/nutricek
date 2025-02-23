@@ -5,7 +5,7 @@ import {
   useGetTrendingArticles,
 } from "@/services/article-service";
 import { useGetAllProducts } from "@/services/product-service";
-import { Product } from "@prisma/client";
+import type { Product } from "@prisma/client";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -73,7 +73,7 @@ export default function SearchModule() {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="container mx-auto h-svh"
+      className="container mx-auto flex h-screen flex-col overflow-hidden"
     >
       {/* Search Bar */}
       <motion.div variants={fadeInUp}>
@@ -112,7 +112,7 @@ export default function SearchModule() {
           >
             {filteredProducts.length === 0 ? (
               <motion.div
-                className="flex flex-col items-center justify-center pt-48 text-center"
+                className="flex flex-1 flex-col items-center justify-center text-center"
                 variants={fadeInUp}
               >
                 <RiShoppingBasket2Fill className="flex h-48 w-48 text-gray-400" />
@@ -123,7 +123,10 @@ export default function SearchModule() {
                 </p>
               </motion.div>
             ) : (
-              <motion.div className="mt-4 space-y-4" variants={staggerChildren}>
+              <motion.div
+                className="mt-4 flex-1 space-y-4 overflow-y-auto"
+                variants={staggerChildren}
+              >
                 {filteredProducts.map((product) => (
                   <motion.button
                     key={product.id}
@@ -134,7 +137,7 @@ export default function SearchModule() {
                     whileTap={{ scale: 0.98 }}
                   >
                     <Image
-                      src={product.image}
+                      src={product.image || "/placeholder.svg"}
                       alt={product.name}
                       className="h-12 w-12 rounded-full object-cover"
                       width={48}
@@ -152,7 +155,12 @@ export default function SearchModule() {
       {/* Home Content */}
       <AnimatePresence>
         {!searchQuery && (
-          <motion.div initial="initial" animate="animate" exit="exit">
+          <motion.div
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="flex-1 overflow-y-auto"
+          >
             {/* Hot Now Section */}
             <motion.div className="pt-6" variants={fadeInUp}>
               <h2 className="mb-4 text-xl font-semibold">Hot Now</h2>
@@ -166,13 +174,12 @@ export default function SearchModule() {
                       key={item.title}
                       className="relative min-w-[240px] overflow-hidden rounded-2xl"
                       variants={fadeInUp}
-                      whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
                       <Image
-                        src={item.image}
+                        src={item.image || "/placeholder.svg"}
                         alt={item.title}
-                        className="h-[200px] w-full object-cover"
+                        className="h-[200px] w-full object-cover transition-transform duration-300 hover:scale-105"
                         width={240}
                         height={200}
                       />
@@ -201,7 +208,6 @@ export default function SearchModule() {
                     <motion.div
                       className="flex items-center justify-between border-b border-gray-100 pb-4"
                       variants={fadeInUp}
-                      whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <p className="w-full text-[#e2782c]">{item.title}</p>
