@@ -1,6 +1,6 @@
 # NutriCek 🍎
 
-![NutriCek Logo](/public/assets/nutricek.svg)
+![NutriCek Logo](/public/assets/nutricek.png)
 
 NutriCek is an AI-powered web application designed to help consumers quickly assess the nutritional content of packaged food and beverages. By utilizing image recognition technology, NutriCek simplifies the process of understanding nutritional labels, promoting informed food choices, and encouraging healthier eating habits.
 
