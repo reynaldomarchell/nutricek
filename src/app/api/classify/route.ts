@@ -68,7 +68,7 @@ export async function POST(request: Request) {
     Be as accurate as possible based on the image content. Just return the JSON object starting with { and end with }. If it's still food or drink but you can't determined accurately, return JSON object with the closest data. If the image is neither food or drink, please respond with empty JSON object {}.`;
 
     const response = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "chatgpt-4o-latest",
       messages: [
         {
           role: "user",
